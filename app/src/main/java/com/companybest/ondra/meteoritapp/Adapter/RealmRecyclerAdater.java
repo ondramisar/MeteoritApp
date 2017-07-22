@@ -1,4 +1,4 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Adapter;
 
 
 import android.annotation.SuppressLint;
@@ -11,9 +11,16 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.companybest.ondra.meteoritapp.Model.MeteoritModel;
+import com.companybest.ondra.meteoritapp.R;
+import com.companybest.ondra.meteoritapp.Screens.MapActivity;
+
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
+
+//This adapter is for realm recyclerView item
+//All textViews and button for each item are set here and are automaticly updated
 
 public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritModel, RealmRecyclerAdater.ViewHolder> {
 
@@ -49,14 +56,14 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
 
     public RealmRecyclerAdater(android.content.Context context, RealmResults<MeteoritModel> realmResults, boolean automaticUpdate, boolean animateResults) {
         super(context, realmResults, automaticUpdate, animateResults);
+
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int viewType) {
         View v = inflater.inflate(R.layout.item_recycler_view, viewGroup, false);
-        ViewHolder vh = new ViewHolder((FrameLayout) v);
-        return vh;
+        return new ViewHolder((FrameLayout) v);
     }
 
 
@@ -69,8 +76,6 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
         viewHolder.mass.setText("Velikost : " + String.valueOf(meteoritModel.getMass()) + " g");
         viewHolder.year.setText("Rok dopadu : " + String.valueOf(meteoritModel.getYear()));
 
-
-        //Log.i("heyno", meteoritModel.getLat() + " " + String.valueOf(meteoritModel.getLng()));
 
         viewHolder.next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +93,6 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
         viewHolder.itemView.setBackgroundColor(
                 COLORS[(int) (meteoritModel.getId() % COLORS.length)]
         );
-
 
     }
 }

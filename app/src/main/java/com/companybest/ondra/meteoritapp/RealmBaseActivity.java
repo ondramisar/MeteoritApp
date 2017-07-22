@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class RealmBaseActivity extends AppCompatActivity {
+//So we can initialized realm and set up configuration
+
+public abstract class RealmBaseActivity extends AppCompatActivity {
 
     private RealmConfiguration realmConfiguration;
 

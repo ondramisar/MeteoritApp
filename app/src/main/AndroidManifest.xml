@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".Screens.MainActivity"
             android:screenOrientation="portrait">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListOfMetActivity"
+            android:name=".Screens.ListOfMetActivity"
             android:screenOrientation="portrait">
         </activity>
         <!--
@@ -37,11 +37,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapActivity"
+            android:name=".Screens.MapActivity"
             android:label="@string/title_activity_map" />
 
         <service
-            android:name=".ServiceForAsync"
+            android:name=".Tasks.ServiceForAsync"
             android:icon="@drawable/common_google_signin_btn_icon_dark"
             android:label="servicename" />
 

@@ -1,8 +1,10 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Model;
 
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+
+//Model for each meteorit used with realm
 
 public class MeteoritModel extends RealmObject {
 

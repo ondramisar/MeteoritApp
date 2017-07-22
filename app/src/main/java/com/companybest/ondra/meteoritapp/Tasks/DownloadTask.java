@@ -1,10 +1,12 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Tasks;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.companybest.ondra.meteoritapp.Model.MeteoritModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +21,7 @@ import java.net.URL;
 
 import io.realm.Realm;
 
+//Task for getting all the information from JSON and writing it into realm database
 
 public class DownloadTask extends AsyncTask<String, Void, String> {
 
@@ -26,44 +29,45 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
 
     @SuppressLint("StaticFieldLeak")
-    private Context context = null;
+    private Context context;
 
 
+    //One constructor for the first time creating so progressDialog can be displayed
+    //For most of the devices don't need to be because task is fast,
+    //but for better visual and no white screen is better to use
     public DownloadTask(Context context) {
-        Log.i("user4", "context not null in const");
         this.context = context;
     }
 
+    //General constructor for service to access
     public DownloadTask() {
-
     }
 
     @Override
     protected void onPreExecute() {
 
         if (context != null) {
-            Log.i("user4", "context not null");
             progressDialog = ProgressDialog.show(context, "", "Stahují se všechny meteority prosím počkejte...", true, true);
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
-        //Log.i("user2", String.valueOf(progressDialog.getProgress()));
 
     }
 
     @Override
     protected String doInBackground(String... params) {
-        // These two need to be declared outside the try/catch
-        // so that they can be closed in the finally block.
+        //These two need to be declared outside the try/catch
+        //so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        String forecastJsonStr = null;
+        String forecastJsonStr;
 
         try {
-            // Construct the URL
-            // URL url = new URL("https://data.nasa.gov/resource/y77d-th95.json?$$app_token=JHynTGkWZn1dm5gyxPKNVsdBv");
+            //Construct the URL
+            //In URL there is token for this app and filter to get all the data form year 2011 to 2015(last update)
             URL url = new URL("https://data.nasa.gov/resource/y77d-th95.json?$$app_token=JHynTGkWZn1dm5gyxPKNVsdBv&$where=year%20between%20%272010-01-10T00:00:00%27%20and%20%272015-01-10T00:00:00%27");
+
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -74,7 +78,6 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
             StringBuilder buffer = new StringBuilder();
 
             if (inputStream == null) {
-
                 return null;
             }
 
@@ -82,9 +85,9 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
+                //Since it's JSON, adding a newline isn't necessary
+                //But it does make debugging a  easier if you print out the completed
+                //buffer for debugging.
                 buffer.append(line + "\n");
             }
 
@@ -92,12 +95,14 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
                 // Stream was empty.  No point in parsing.
                 return null;
             }
+
             forecastJsonStr = buffer.toString();
+
             return forecastJsonStr;
+
         } catch (IOException e) {
-            Log.e("PlaceholderFragment", "Error ", e);
-            // If the code didn't successfully get the weather data, there's no point in attemping
-            // to parse it.
+
+            e.printStackTrace();
             return null;
         } finally {
             if (urlConnection != null) {
@@ -107,7 +112,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e("PlaceholderFragment", "Error closing stream", e);
+                    e.printStackTrace();
                 }
             }
         }
@@ -115,28 +120,32 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String result) {
 
 
         final Realm realm = Realm.getDefaultInstance();
         try {
-            final JSONArray jsonArray = new JSONArray(s);
+            //Create JsonArray from result
+            final JSONArray jsonArray = new JSONArray(result);
 
+            //Begin Transaction before for loop so we don't open new for each
             realm.beginTransaction();
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject;
-                jsonObject = jsonArray.getJSONObject(i);
+                //Get for each i a JsonObject from JsonArray
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                //We need a meteorit to have a year and a mass(name has everyone)
                 if (jsonObject.has("year") && jsonObject.has("mass")) {
+                    //Year is a string with a date and time too, but every date is 01-01 and time 00
+                    //So we get only a year from it to use
                     String fullDate = jsonObject.getString("year");
+                    String justYear = fullDate.substring(0, 4);
 
-                    final String justYear = fullDate.substring(0, 4);
+                    //Log.i("user", "year : " + String.valueOf(Integer.valueOf(justYear)) + "  mass :  " + jsonObject.getString("mass"));
 
-                    Log.i("user", "year : " + String.valueOf(Integer.valueOf(justYear)) + "  mass :  " + jsonObject.getString("mass"));
-
-                    //Log.i("heyno","reclat : " + String.valueOf(Double.valueOf(jsonObject.getString("reclat")))+ "  reclong :  " + String.valueOf(Double.valueOf(jsonObject.getString("reclong"))));
-
+                    //Create a new or update meteorit with our parameters
+                    //(id is never used but for realm is best to have @primaryKey
                     MeteoritModel meteorit = new MeteoritModel();
                     meteorit.setId(Integer.parseInt(jsonObject.getString("id")));
                     meteorit.setYear(Integer.parseInt(justYear));
@@ -153,6 +162,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
+            //Because we are using realm in threads it needs to be close by try/finally
             realm.close();
         }
 

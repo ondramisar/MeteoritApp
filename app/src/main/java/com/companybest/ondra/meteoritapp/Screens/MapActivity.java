@@ -1,9 +1,10 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Screens;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.companybest.ondra.meteoritapp.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +30,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //getting the positions
         Intent i = getIntent();
         lat = i.getDoubleExtra("lat", 0);
         lng = i.getDoubleExtra("lng", 0);
@@ -49,9 +51,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        //setting the camera at the right position
         LatLng coordinate = new LatLng(lat, lng);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 6);
         mMap.moveCamera(yourLocation);
+
+
         MarkerOptions s = new MarkerOptions().position(new LatLng(lat, lng));
         Marker m = mMap.addMarker(s);
         m.setPosition(new LatLng(lat, lng));

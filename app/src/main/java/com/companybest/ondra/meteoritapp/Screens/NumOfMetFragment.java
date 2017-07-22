@@ -1,4 +1,4 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Screens;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,10 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.companybest.ondra.meteoritapp.Model.MeteoritModel;
+import com.companybest.ondra.meteoritapp.R;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class NumberOfMeteoritsFragment extends DialogFragment {
+/*
+        FragmentDialog for displaying number of metaorit
+
+        In database there is only 2011, 2012, 2013
+        There for special set of how much is each year
+        For the future need to add new when the database is updated
+        or add a listView and function to check each year */
+
+public class NumOfMetFragment extends DialogFragment {
 
     Realm realm;
 
@@ -30,6 +41,7 @@ public class NumberOfMeteoritsFragment extends DialogFragment {
         TextView numberOf2012 = (TextView) rootView.findViewById(R.id.number_2012);
         TextView numberOf2013 = (TextView) rootView.findViewById(R.id.number_2013);
 
+        //reusing result for each textView
         RealmResults<MeteoritModel> allMet = realm.where(MeteoritModel.class).findAll();
         numberOfAll.setText("Od roku 2011 až do roku 2013 spadlo: " + String.valueOf(allMet.size()) + " meteoritů");
 
@@ -44,14 +56,15 @@ public class NumberOfMeteoritsFragment extends DialogFragment {
         allMet = realm.where(MeteoritModel.class).equalTo("year", 2013).findAll();
         numberOf2013.setText("V roce 2013 spadlo: " + String.valueOf(allMet.size()) + " meteoritů");
 
+        //Special button for cumming back, doesn't need to be but looks better
         Button creditBack = (Button) rootView.findViewById(R.id.creditBack);
         creditBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberOfMeteoritsFragment.this.dismiss();
+                NumOfMetFragment.this.dismiss();
             }
         });
-        // Do something else
+
         return rootView;
     }
 

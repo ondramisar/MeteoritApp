@@ -1,4 +1,4 @@
-package com.companybest.ondra.meteoritapp;
+package com.companybest.ondra.meteoritapp.Tasks;
 
 import android.app.Service;
 import android.content.Context;
@@ -6,28 +6,20 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
-import android.util.Log;
 
+//Service is only for async to get called by alarmManager
 
 public class ServiceForAsync extends Service {
 
-    public ServiceForAsync() {
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        //Check for internet, If not than don't update
         if (isNetworkAvailable()) {
             new DownloadTask().execute();
-            Log.i("user5", "is internet");
-        } else {
-            Log.i("user5", "not internet");
         }
+
         stopSelf();
 
         return super.onStartCommand(intent, flags, startId);
