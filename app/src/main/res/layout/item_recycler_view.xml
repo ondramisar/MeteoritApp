@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="130dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/mass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mass:   "
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:textSize="18sp"
+            android:layout_below="@+id/name"
+            android:textColor="@android:color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="@+id/name" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name:   "
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="year         "
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/mass"
+            android:layout_alignLeft="@+id/mass"
+            android:textColor="@android:color/white"
+            android:layout_alignStart="@+id/mass" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="NA MAPĚ"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</FrameLayout>

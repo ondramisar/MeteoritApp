@@ -1,0 +1,26 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=02:DB:2D:61:07:F0:E7:1A:AA:3C:BC:1C:A4:D0:8F:47:F8:5E:AB:34%3Bcom.companybest.ondra.meteoritapp
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    02:DB:2D:61:07:F0:E7:1A:AA:3C:BC:1C:A4:D0:8F:47:F8:5E:AB:34
+
+    SHA-1 certificate fingerprint:
+    02:DB:2D:61:07:F0:E7:1A:AA:3C:BC:1C:A4:D0:8F:47:F8:5E:AB:34
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCHSq88VNCOxt-VuTHY7BeMgY_1P4eYak4
+    </string>
+</resources>
