@@ -1,9 +1,12 @@
 package com.companybest.ondra.meteoritapp;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.IBinder;
-
+import android.util.Log;
 
 
 public class ServiceForAsync extends Service {
@@ -19,8 +22,14 @@ public class ServiceForAsync extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        new DownloadTask().execute();
 
+
+        if (isNetworkAvailable()) {
+            new DownloadTask().execute();
+            Log.i("user5", "is internet");
+        }else {
+            Log.i("user5", "not internet");
+        }
         stopSelf();
 
         return super.onStartCommand(intent, flags, startId);
@@ -32,6 +41,12 @@ public IBinder onBind(Intent intent) {
 
         }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
 
 

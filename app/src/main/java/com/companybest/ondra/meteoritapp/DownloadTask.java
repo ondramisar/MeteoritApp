@@ -47,7 +47,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
-        Log.i("user2", String.valueOf(progressDialog.getProgress()));
+        //Log.i("user2", String.valueOf(progressDialog.getProgress()));
 
     }
 

@@ -40,9 +40,9 @@ public class MainActivity extends RealmBaseActivity {
             Log.i("user4", "second time");
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
             calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 59);
+            calendar.set(Calendar.SECOND, 0);
 
             Intent i = new Intent(this, ServiceForAsync.class);
             PendingIntent pi = PendingIntent.getService(this,0, i,0);
