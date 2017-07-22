@@ -22,24 +22,22 @@ public class ServiceForAsync extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-
         if (isNetworkAvailable()) {
             new DownloadTask().execute();
             Log.i("user5", "is internet");
-        }else {
+        } else {
             Log.i("user5", "not internet");
         }
         stopSelf();
 
         return super.onStartCommand(intent, flags, startId);
-        }
+    }
 
-@Override
-public IBinder onBind(Intent intent) {
+    @Override
+    public IBinder onBind(Intent intent) {
         return null;
 
-        }
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

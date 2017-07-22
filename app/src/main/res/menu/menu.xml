@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.companybest.ondra.engineerclicker.MainActivity">
+
+
+    <item
+        android:id="@+id/sort_from_biggest"
+        android:orderInCategory="100"
+        android:title="Seřadit od největšího"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_from_smalles"
+        android:orderInCategory="100"
+        android:title="Seřadit od nejmenšího"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/number_fragment"
+        android:orderInCategory="100"
+        android:title="Počet meteoritů"
+        app:showAsAction="never" />
+
+</menu>

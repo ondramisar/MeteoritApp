@@ -2,6 +2,7 @@ package com.companybest.ondra.meteoritapp;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
@@ -44,8 +45,11 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
             Color.argb(255, 105, 5, 98)
     };
 
+    private Context context;
+
     public RealmRecyclerAdater(android.content.Context context, RealmResults<MeteoritModel> realmResults, boolean automaticUpdate, boolean animateResults) {
         super(context, realmResults, automaticUpdate, animateResults);
+        this.context = context;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
 
         viewHolder.name.setText("Meteorit : " + meteoritModel.getName());
         viewHolder.mass.setText("Velikost : " + String.valueOf(meteoritModel.getMass()) + " g");
-        viewHolder.year.setText("Rok : " + String.valueOf(meteoritModel.getYear()));
+        viewHolder.year.setText("Rok dopadu : " + String.valueOf(meteoritModel.getYear()));
 
 
         //Log.i("heyno", meteoritModel.getLat() + " " + String.valueOf(meteoritModel.getLng()));
@@ -74,8 +78,8 @@ public class RealmRecyclerAdater extends RealmBasedRecyclerViewAdapter<MeteoritM
                 Intent i = new Intent(getContext(), MapActivity.class);
                 i.putExtra("lat", meteoritModel.getLat());
                 i.putExtra("lng", meteoritModel.getLng());
-                getContext().startActivity(i);
-
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
 
             }
         });

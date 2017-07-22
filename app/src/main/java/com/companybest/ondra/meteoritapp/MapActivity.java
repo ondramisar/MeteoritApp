@@ -30,8 +30,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
 
         Intent i = getIntent();
-        lat = i.getDoubleExtra("lat",0);
-        lng = i.getDoubleExtra("lng",0);
+        lat = i.getDoubleExtra("lat", 0);
+        lng = i.getDoubleExtra("lng", 0);
 
     }
 
@@ -52,11 +52,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng coordinate = new LatLng(lat, lng);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 6);
         mMap.moveCamera(yourLocation);
-        MarkerOptions s = new MarkerOptions().position(new LatLng(lat,lng));
+        MarkerOptions s = new MarkerOptions().position(new LatLng(lat, lng));
         Marker m = mMap.addMarker(s);
-        m.setPosition(new LatLng(lat,lng));
-
-
+        m.setPosition(new LatLng(lat, lng));
 
 
     }

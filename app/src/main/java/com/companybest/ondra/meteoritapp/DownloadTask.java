@@ -63,7 +63,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         try {
             // Construct the URL
             // URL url = new URL("https://data.nasa.gov/resource/y77d-th95.json?$$app_token=JHynTGkWZn1dm5gyxPKNVsdBv");
-            URL url = new URL("https://data.nasa.gov/resource/y77d-th95.json?$where=year%20between%20%272010-01-10T00:00:00%27%20and%20%272015-01-10T00:00:00%27");
+            URL url = new URL("https://data.nasa.gov/resource/y77d-th95.json?$$app_token=JHynTGkWZn1dm5gyxPKNVsdBv&$where=year%20between%20%272010-01-10T00:00:00%27%20and%20%272015-01-10T00:00:00%27");
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
