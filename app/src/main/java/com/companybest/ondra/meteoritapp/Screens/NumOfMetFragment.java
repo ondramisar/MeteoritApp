@@ -31,7 +31,7 @@ public class NumOfMetFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.number_meteorit_fragment, container,
+        View rootView = inflater.inflate(R.layout.num_met_fragment, container,
                 false);
 
         realm = Realm.getDefaultInstance();
